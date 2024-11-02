@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap" rel="stylesheet">
+
+        <title>Selecting Seats |  Book My Seat  </title>
+    </head>
+    <body>
+        
+        <div id="top">
+            <div id="top-content">
+                <h1>Book My Seat</h1>
+                <div id="nav">
+                    <ul>
+                        <li><a href="home.html" target="_blank">Home</a></li>
+                        <li><a href=".html" target="_blank">About</a></li>
+                        <li><a href="contact.html" target="_blank">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Sign Up button will be hidden after login -->
+                <button class="sign-up-button" id="signInButton"><b>Sign Up</b></button>
+    
+                <!-- Display the greeting after login -->
+                <span id="greeting" style="display: none; font-size: 25px; color: #243642; margin-right:20px; font-family: Space Grotesk, sans-serif;"></span>
+    
+                <!-- Hidden sign-in form -->
+                <div id="signInModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>Sign In</h2>
+                        <form id="signupForm">
+                            <input type="text" id="usernameInput" placeholder="Username" required>
+                            <input type="password" id="usernameInput"placeholder="Password" required><br>
+                            <div class="social-login">
+                                <button onclick="loginWith('gmail')">Gmail</button>
+                                <button onclick="loginWith('facebook')">Facebook</button>
+                                <button type="submit">Sign Up</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="mrjn">
+            <div class="container">
+                <h1 id="movieTitle">Selecting Seats for </h1>
+            </div>
+            <div class="screen">
+                <h2>All eyes this way please!</h2>
+            </div>
+            <div class="seats-container">
+                <!-- Row A -->
+                <div class="row">
+                    <div class="seat">A1</div>          <div class="seat">A2</div>
+                    <div class="seat booked">A3</div>   <div class="seat">A4</div>
+                    <div class="seat">A5</div>          <div class="seat booked">A6</div>
+                    <div class="seat">A7</div>          <div class="seat">A8</div>
+                    <div class="seat">A9</div>          <div class="seat">A10</div>
+                </div>
+                
+                <!-- Row B -->
+                <div class="row">
+                    <div class="seat">B1</div>          <div class="seat">B2</div>
+                    <div class="seat">B3</div>   <div class="seat booked">B4</div>
+                    <div class="seat booked">B5</div>   <div class="seat booked">B6</div>
+                    <div class="seat">B7</div>   <div class="seat">B8</div>
+                    <div class="seat booked">B9</div>   <div class="seat booked">B10</div>
+                    <div class="seat">B11</div>         <div class="seat">B12</div>
+                    <div class="seat">B13</div>         <div class="seat">B14</div>
+                </div>
+                
+                <!-- Row C -->
+                <div class="row">
+                    <div class="seat booked">C1</div>   <div class="seat booked">C2</div>
+                    <div class="seat">C3</div>          <div class="seat">C4</div>
+                    <div class="seat">C5</div>          <div class="seat booked">C6</div>
+                    <div class="seat booked">C7</div>          <div class="seat booked">C8</div>
+                    <div class="seat booked">C9</div>   <div class="seat">C10</div>
+                    <div class="seat">C11</div>         <div class="seat booked">C12</div>
+                    <div class="seat booked">C13</div>         <div class="seat">C14</div>
+                </div>
+            
+                <!-- Row D (Fixed from previous B-row duplication) -->
+                <div class="row">
+                    <div class="seat">D1</div>          <div class="seat">D2</div>
+                    <div class="seat booked">D3</div>   <div class="seat">D4</div>
+                    <div class="seat ">D5</div>   <div class="seat ">D6</div>
+                    <div class="seat ">D7</div>   <div class="seat ">D8</div>
+                    <div class="seat booked">D9</div>   <div class="seat">D10</div>
+                    <div class="seat">D11</div>         <div class="seat">D12</div>
+                    <div class="seat">D13</div>         <div class="seat">D14</div>
+                </div>
+            
+                <!-- Row E (Fixed from previous B-row duplication) -->
+                <div class="row">
+                    <div class="seat">E1</div>          <div class="seat">E2</div>
+                    <div class="seat booked">E3</div>   <div class="seat">E4</div>
+                    <div class="seat ">E5</div>   <div class="seat ">E6</div>
+                    <div class="seat ">E7</div>   <div class="seat ">E8</div>
+                    <div class="seat booked">E9</div>   <div class="seat">E10</div>
+                    <div class="seat">E11</div>    <div class="seat">E12</div>
+                    <div class="seat">E13</div>    <div class="seat">E14</div>
+                </div>
+            </div>
+            <div class="legend">
+                <div><span class="seat"></span> Available</div>
+                <div><span class="seat booked"></span> Booked</div>
+                <div><span class="seat selected"></span> Selected</div>
+                
+            </div>
+            <br>
+            <div class="ticket-container">
+                <p>You have selected <span id="count">0</span> seats for a total of ₹<span id="total">0</span>.</p>
+                    <label for="coupon">Enter Coupon Code: </label>
+                    <input type="text" id="coupon" placeholder="Coupon Code">
+                    <button onclick="applyCoupon()">Apply Coupon</button>
+                    <button onclick="generateTicket()">Confirm Booking</button>
+            </div>
+
+        </div>
+        <br>
+        <footer>
+            <div class="footer-container">
+                <div class="footer-about">
+                    <h2>About the Developers</h2>
+                    <p>This project is developed by <a href="https://www.instagram.com/vchavare_1214/" target="_blank">Vedant chavare</a>><br> A passionate developer. I love creating<br> user-friendly and efficient applications <br>for all kinds of users. Feel free to connect<br> with us on our social media platforms.</p>
+                </div>
+        
+                <div class="footer-links">
+                    <h2>Connect with Us</h2>
+                    <ul>
+                        <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+                        <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+                        <li><a href="https://www.linkedin.com" target="_blank">LinkedIn</a></li>
+                        <li><a href="https://www.youtube.com" target="_blank">YouTube</a></li>
+                    </ul>
+                </div>
+        
+                <div class="footer-location">
+                    <h2>Our Location</h2>
+                    <a href="https://maps.app.goo.gl/z4CmDfmdWj5uSnRJ6" target="_blank">
+                        1234, Developer's Lane, Tech City, Country<br>
+                        Email: contact@bookmyseat.com<br>
+                        Phone: +123 456 7890
+                    </a>
+                </div>
+                
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Book My Seat | Designed by Developers</p>
+            </div>
+        </footer>
+    </body>
+    <style>
+        html
+        {
+            scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar 
+        {
+            width: px; /* Set the width of the scrollbar */
+        }
+
+        ::-webkit-scrollbar-track
+        {
+            background: #E2F1E7;
+            background-size: 200% 200%; 
+        }
+
+        ::-webkit-scrollbar-thumb 
+        {
+            background-color: transparent;                                                /* CHANGES THE SLIDER'S TRANSPARENCY */
+            height: 20px;
+            border-radius: 10px;       
+            border: 2px solid transparent; 
+        }
+
+        ::-webkit-scrollbar-thumb:hover 
+        {
+            background-color: #243642;                                                 /* Change slider color on hover if needed */
+        }
+
+        ::-webkit-scrollbar 
+        {
+            width: 5px;                                                                  /* Adjust the width (horizontal scrollbar) */
+            height: 200px;
+        }
+        body 
+        {
+            margin: 0;
+            padding: 0;
+            background:#E2F1E7;
+            background-size: 200% 200%;
+            position: relative;                                                           /* THIS CONTROL ALL THE DESGINE ELEMENTS OF THE BODY */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-size: 25px;
+            color: #243642;
+            font-size: 27px ;
+            font-family: "Space Grotesk", sans-serif; 
+        }
+
+                                                    /*THE NAVIGATION BAR CSS STARTS HERE*/
+
+        #top
+        {
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);                                  /* THIS MAKES A SHADOW ELEMENT UNDER THE NAVIGAGION BAR */
+        }
+
+        #top-content 
+        {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background:#E2F1E7;
+            color: #243642;
+            position: relative;                                                           /* THIS CONTROL ALL THE DESGINE ELEMENTS OF NAVIGAGION BAR */
+            padding-left:10px;
+            border-radius: 9px;
+            text-align: center;
+            height: 89px;
+            font-size: 27px ;
+            font-family: "Space Grotesk", sans-serif;
+        }
+        
+        #nav ul 
+        {
+            list-style: none;
+            margin-right: 190px;
+            display: flex;
+            
+        }
+
+        #nav ul li 
+        {
+            margin-right: 30px; /* It Adjusts spacing between navigation bar buttons */
+        }
+
+        #nav ul li a 
+        {
+            position: relative;
+            color: #243642;
+            text-decoration: none;
+        }
+
+        #nav ul li a::before 
+        {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #243642;
+            transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+        }
+
+        #nav ul li a:hover::before 
+        {
+            width: 100%;
+            left: 0;
+        }
+
+                                                /*THE AFTER SIGNUP BTN CSS STARTS HERE*/
+
+        .sign-up-button 
+        {
+            cursor: pointer;
+            margin-right: 25px;
+            padding: 1px 5px;
+            text-decoration: none;
+            background: #E2F1E7;
+            background-size: 200% 200%;
+            color: #243642;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            position: relative; 
+            font-size: 25px;
+            font-family: "Space Grotesk", sans-serif;
+        }
+        
+        .sign-up-button:hover 
+        {
+            border-radius: 4px;
+            background: #243642;
+            color: #E2F1E7;
+            animation: borderExpand 1s forwards; /* Trigger the border animation */
+        }
+
+        #usernameInput
+        {
+            background: #243642;
+            color: #E2F1E7;
+            height: 30px;
+            border: 2px solid #E2F1E7;
+            border-radius: 10px;            
+        }
+        
+        #usernameInput::placeholder
+        {
+            margin-top: 4px;
+            color: #E2F1E7;
+            text-align: justify;
+            height: 30px;            
+        }
+
+        .modal 
+        {
+            display: none; 
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(60, 60, 60, 0.5); 
+            backdrop-filter: blur(3.5px); /* Apply a blur effect */
+        }
+        
+        .modal-content 
+        {
+            background-color: #E2F1E7;
+            margin: 15% auto;
+            padding: 20px;
+            color: #243642;
+            border: 1px solid #ffffff;
+            border-radius: 9px;
+            width: 50%;
+        } 
+        
+
+        .close 
+       {
+                color: #243642;
+                float: right;
+                font-family: "Space Grotesk", sans-serif;
+                font-size: 28px;
+                font-weight: bold;
+        }
+        
+        .close:hover,.close:focus
+        {
+            color: red;
+            font-family: "Space Grotesk", sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .mrjn
+        {
+            border: 2px solid #243642;
+            border-radius: 4px;
+            margin-left:20px;
+            margin-right:20px;
+        }
+
+                                                /*THE SEAT SELECTION CSS STARTS HERE*/
+
+        .container 
+        {
+            font-size: 19px;
+            font-family: "Space Grotesk", sans-serif;
+            text-align: center;
+        }
+
+        .screen 
+        {
+            background-color: #243642;
+            height: 50px;
+            margin: 20px 0;
+            margin-left: 500px;
+            margin-right: 500px;
+
+            margin-bottom: 50px;
+            border-radius: 15px;
+            font-size: 17px;
+            
+            font-family: "Space Grotesk", sans-serif;
+            text-align: center;
+            color: #E2F1E7;
+            
+        }
+
+        .screen h2
+        {
+            padding-top: 6px;            
+        }
+
+        .seats-container 
+        {
+            font-size: 19px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .row 
+        {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .seat 
+        {
+            background-color: #fff;
+            color: #243642;
+            height: 30px;
+            width: 35px;
+            margin: 4px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .seat.selected 
+        {
+            background-color: #243642;
+            color: #E2F1E7;
+        }
+
+        .seat.booked 
+        {
+            color: #243642;
+            background-color: grey;
+            cursor: not-allowed;
+        }
+                
+        .legend 
+        {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .legend div 
+        {
+            margin-right: 20px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 20px;
+        }
+
+        .legend .seat {
+            margin-right: 5px;
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+        }
+
+        .ticket-container
+         {
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            max-width: 650px;
+            margin-left:20px ;
+            font-family: "Space Grotesk", sans-serif;
+        }
+        #coupon
+        {
+            background-color: #E2F1E7;
+            color: #243642;
+            font-size: 16px;
+            text-align:center;
+            height: 30px;
+            margin-bottom: 10px;
+            border: 2px solid #243642;
+            border-radius:4px;
+        }
+        #coupon:hover
+        {
+            background-color: #243642;
+            color: #E2F1E7;
+            height: 30px;
+            margin-bottom: 10px;
+            border: 2px solid #243642;
+            border-radius: 4px;
+        }
+        .seat:hover 
+        {
+            background-color: #ccc;
+            transition: background-color 0.3s ease;
+        }
+
+        button 
+        {
+            padding: 9.5px 17.5px;
+            margin-left: 15px;
+            margin-top: 2px;
+            margin-bottom: 20px;
+            background-color: #E2F1E7;
+            color: #243642;
+            border: 2px solid #243642;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        button:hover 
+        {
+            padding: 9.5px 17.5px;
+            margin-left: 15px;
+            margin-top: 2px;
+            margin-bottom: 20px;
+            background-color: #243642;
+            color: #E2F1E7;
+            border: 2px solid #E2F1E7;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            font-family: "Space Grotesk", sans-serif;
+        }
+        
+         /*THE FOOTER CSS STARTS HERE*/
+        footer {
+            background-color: #E2F1E7;
+            color: #243642;
+            border: 2px solid #243642;
+            border-radius: 4px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 15px;
+            margin-right: 15px;
+            padding: 40px 0;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 14px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
+            margin-bottom: 20px;
+        }
+
+        .footer-container h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-about {
+            flex: 1;
+            margin-right: 30px;
+        }
+
+        .footer-about p,
+        .footer-location p {
+            font-size: 19px;
+            line-height: 1.8;
+        }
+
+        .footer-location a {
+            color: #243642;
+            text-decoration: none;
+            font-size: 19px;
+            display: inline-block;
+            line-height: 1.8;
+            position: relative;
+            /* Important for the underline animation */
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-location a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #243642;
+            transition: width 0.3s ease-in-out;
+            /* Animate width of underline */
+        }
+
+        .footer-location a:hover::after {
+            width: 100%;
+            /* Expand the underline on hover */
+        }
+
+        .footer-location a:hover {
+            color: #243642;
+        }
+
+        .footer-links {
+            margin-right: 100px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #243642;
+            text-decoration: none;
+            font-size: 19px;
+            position: relative;
+            /* Required for the underline animation */
+            transition: color 0.3s ease;
+        }
+
+        .footer-links ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #243642;
+            transition: width 0.3s ease-in-out;
+            /* Animate width of underline */
+        }
+
+        .footer-links ul li a:hover::after {
+            width: 100%;
+            /* Expand the underline on hover */
+        }
+
+        .footer-links ul li a:hover {
+            color: #243642;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            background-color: #E2F1E7;
+        }
+
+        .footer-bottom p {
+            font-size: 16px;
+            color: #243642;
+        }
+
+        @media screen and (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: justify;
+            }
+        }
+    </style>
+    <script>
+        // Get movie name from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieName = urlParams.get('movie');
+        document.getElementById('movieTitle').innerText +=" "+movieName;
+
+        const seats = document.querySelectorAll('.row .seat:not(.booked)');
+        let count = 0;
+        const ticketPrice = 200;
+
+        seats.forEach(seat => {
+            seat.addEventListener('click', () => {
+                seat.classList.toggle('selected');
+                updateSelectedSeats();
+            });
+        });
+
+        function updateSelectedSeats() {
+            const selectedSeats = document.querySelectorAll('.row .seat.selected');
+            count = selectedSeats.length;
+            document.getElementById('count').innerText = count;
+            document.getElementById('total').innerText = count * ticketPrice;
+        }
+
+        function applyCoupon() {
+            const coupon = document.getElementById('coupon').value;
+            let discount = 0;
+            if (coupon === 'DISCOUNT05') {
+                discount = 5;
+            } else if (coupon === 'SAVE15') {
+                discount = 15;
+            } else {
+                alert('Invalid Coupon');
+            }
+            document.getElementById('total').innerText = (count * ticketPrice * (1 - discount / 100)).toFixed(2);
+        }
+
+        function generateTicket() {
+            const buyerName = prompt('Please enter your name:');
+            const largeBooking = count > 8 ? 'Yes' : 'No';
+            const finalPrice = document.getElementById('total').innerText;
+            
+            const ticketDetails = {
+                movie: movieName,
+                buyerName: buyerName,
+                seats: count,
+                price: finalPrice,
+                largeBooking: largeBooking
+            };
+
+            sessionStorage.setItem('ticketDetails', JSON.stringify(ticketDetails));
+            window.open('ticket.html', '_blank');
+        }
+
+    </script>
+</html>
